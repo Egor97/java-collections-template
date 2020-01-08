@@ -112,7 +112,6 @@ public class SimpleTextStatisticsAnalyzer implements TextStatisticsAnalyzer {
         }
 
         return map;
-
     }
 
     /**
@@ -128,27 +127,15 @@ public class SimpleTextStatisticsAnalyzer implements TextStatisticsAnalyzer {
         List<String> list = getWords(text);
         switch (direction) {
             case ASC:
-                for (String element : list) {
-                    for (int i = 0; i < list.size(); i++) {
-                        if (element.length() > list.get(i).length()) {
-                            list.set(list.indexOf(list.get(i)), element);
-                        }
-                    }
-                }
+                list.sort(Comparator.comparingInt(String::length));
             break;
             case DESC:
-                for (String element : list) {
-                    for (int i = 0; i < list.size(); i++) {
-                        if (element.length() < list.get(i).length()) {
-                            list.set(list.indexOf(list.get(i)), element);
-                        }
-                    }
-                }
+                list.sort((Comparator.comparingInt(String::length)).reversed());
             break;
             default:
                 throw new IllegalStateException("Unexpected value: " + direction);
         }
-        
+
         return list;
     }
 }
