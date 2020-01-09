@@ -3,10 +3,9 @@ package com.epam.izh.rd.online.service;
 import com.epam.izh.rd.online.helper.Direction;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
-import static java.util.Collections.*;
 
 /**
  * Данный класс обязан использовать StreamApi из функционала Java 8. Функциональность должна быть идентична
@@ -46,19 +45,16 @@ public class StreamApiTextStatisticsAnalyzer implements TextStatisticsAnalyzer {
 
     @Override
     public Map<String, Integer> countNumberOfWordsRepetitions(String text) {
-
-        return emptyMap();
+        return getWords(text).stream().collect(Collectors.toMap(k -> k, v -> Math.toIntExact(getWords(text).stream().filter(v::equals).count()), (k, v) -> v));
     }
 
     @Override
     public List<String> sortWordsByLength(String text, Direction direction) {
             return Direction.ASC.equals(direction) ? getWords(text).stream()
-                                                                   .sorted(Comparator
-                                                                   .comparingInt(String::length))
+                                                                   .sorted(Comparator.comparingInt(String::length))
                                                                    .collect(Collectors.toList())
                                                    : getWords(text).stream()
-                                                                   .sorted(Comparator
-                                                                   .comparingInt(String::length).reversed())
+                                                                   .sorted(Comparator.comparingInt(String::length).reversed())
                                                                    .collect(Collectors.toList());
     }
 }

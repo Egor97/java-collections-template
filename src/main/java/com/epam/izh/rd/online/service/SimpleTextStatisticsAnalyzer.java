@@ -96,19 +96,18 @@ public class SimpleTextStatisticsAnalyzer implements TextStatisticsAnalyzer {
      */
     @Override
     public Map<String, Integer> countNumberOfWordsRepetitions(String text) {
-        List<String> list = getWords(text);
         Map<String, Integer> map = new HashMap<>();
 
-        for (String element : list) {
-            int countRepeatWorldInText = 0;
+        for (String element : getWords(text)) {
+            int countRepeatWordInText = 0;
 
-            for (int i = 0; i < list.size(); i++) {
-                if (list.get(i).equals(element)) {
-                    countRepeatWorldInText++;
+            for (int i = 0; i < getWords(text).size(); i++) {
+                if (getWords(text).get(i).equals(element)) {
+                    countRepeatWordInText++;
                 }
             }
 
-            map.put(element, countRepeatWorldInText);
+            map.put(element, countRepeatWordInText);
         }
 
         return map;
