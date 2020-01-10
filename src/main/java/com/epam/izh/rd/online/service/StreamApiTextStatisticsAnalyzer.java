@@ -3,7 +3,6 @@ package com.epam.izh.rd.online.service;
 import com.epam.izh.rd.online.helper.Direction;
 
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -45,7 +44,8 @@ public class StreamApiTextStatisticsAnalyzer implements TextStatisticsAnalyzer {
 
     @Override
     public Map<String, Integer> countNumberOfWordsRepetitions(String text) {
-        return getWords(text).stream().collect(Collectors.toMap(k -> k, v -> Math.toIntExact(getWords(text).stream().filter(v::equals).count()), (k, v) -> v));
+        return getWords(text).stream()
+                .collect(Collectors.toMap(k -> k, v -> Math.toIntExact(getWords(text).stream().filter(v::equals).count()), (k, v) -> v));
     }
 
     @Override
